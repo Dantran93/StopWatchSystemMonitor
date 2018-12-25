@@ -45,8 +45,8 @@ public class StopWatchPeriod
 	
 	public StopWatchPeriod (Date startTime, Date endTime)
 	{
-		if (startTime.getTime() > endTime.getTime())
-			throw new IllegalArgumentException(INVALID_TIME_PERIOD_MSG);
+		//if (startTime.getTime() > endTime.getTime())
+		//	throw new IllegalArgumentException(INVALID_TIME_PERIOD_MSG);
 		
 		this.startTime = startTime;
 		this.endTime = endTime;

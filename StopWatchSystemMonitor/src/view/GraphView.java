@@ -16,22 +16,40 @@ public class GraphView extends Canvas
 	private GraphicsContext graphics;
 	
 	
+	
+	/**
+	 * GraphView Constructor (double, double)
+	 * 
+	 * Purpose:
+	 */
+	
 	public GraphView (double width, double height)
 	{
 		super(width, height);
 		this.graphics = this.getGraphicsContext2D();
-		drawFrame();
-	}
+		drawFrame(false);
+	} // GraphView Constructor (double, double)
 	
 	
 	
+	/**
+	 * drawFrame()
+	 * 
+	 * Purpose:
+	 */
 	
-	public void drawFrame ()
+	public void drawFrame (boolean appLaunched)
 	{
-		graphics.setFill(Color.WHITE);
-		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-	}
-	
-	
+		if (!appLaunched)
+		{
+			graphics.setFill(Color.WHITE);
+			graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+		}
+		
+		else
+		{
+			
+		}
+	} // drawFrame()
 	
 } // class GraphView

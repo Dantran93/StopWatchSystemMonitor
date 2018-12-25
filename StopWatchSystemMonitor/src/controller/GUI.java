@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -12,8 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
@@ -31,6 +30,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.MonitoredSystem;
 import model.StructureBuilder;
 import view.GraphView;
 
@@ -65,15 +65,17 @@ public class GUI extends Application
 	private File selectedFile        = null;
 	private BufferedReader csvReader = null;
 	
+	private List<MonitoredSystem> systems;
+	
 	
 	
 	private Scene scene;
 	
 	private Pane root;
-	private Pane graphPane;
 	private Pane controlPane;
 	
-	private GraphView graphView;
+	private ScrollPane graphPane;
+	private GraphView canvas;
 	
 	private Button selectCSVFileButton;
 	private Text selectedFileText;
@@ -143,9 +145,7 @@ public class GUI extends Application
 		
 		setCloseEvents(primaryStage);
 		
-		//addGraphPane();
 		addControlPane();
-		
 		addGraphView();
 		addItemNumberColumnSelection();
 		addStartDateColumnSelection();
@@ -184,8 +184,8 @@ public class GUI extends Application
 	
 	private void addGraphView ()
 	{
-		GraphView canvas = new GraphView(800, 600);
-		ScrollPane graphPane = new ScrollPane();
+		this.canvas = new GraphView(800, 600);
+		this.graphPane = new ScrollPane();
 		graphPane.setTranslateX(15);
 		graphPane.setTranslateY(15);
 		graphPane.setPrefWidth(800);
@@ -381,7 +381,12 @@ public class GUI extends Application
 			@Override
 			public void handle (ActionEvent event)
 			{
-				
+				if (selectedFile != null)
+				{
+					systems = StructureBuilder.readFileBuildStructure(csvReader);
+					for (MonitoredSystem system : systems)
+						System.out.println(system.toString() + "\n");
+				}
 			}
 		});
 		this.controlPane.getChildren().add(this.launchButton);
