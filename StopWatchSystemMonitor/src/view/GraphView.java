@@ -1,7 +1,8 @@
 package view;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * GraphView.java
@@ -10,11 +11,25 @@ import javafx.scene.control.ScrollPane;
  * Purpose: 
  */
 
-public class GraphView extends ScrollPane
+public class GraphView extends Canvas
 {
-	public GraphView ()
+	private GraphicsContext graphics;
+	
+	
+	public GraphView (double width, double height)
 	{
-		super();
+		super(width, height);
+		this.graphics = this.getGraphicsContext2D();
+		drawFrame();
+	}
+	
+	
+	
+	
+	public void drawFrame ()
+	{
+		graphics.setFill(Color.WHITE);
+		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
 	
 	
